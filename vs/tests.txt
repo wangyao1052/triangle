@@ -1,0 +1,21 @@
+1---
+triangle.exe -pzQg A.poly
+参数:
+  -p PSLG
+  -z 索引以0开始
+  -Q quiet
+  -g output .off mesh file.
+
+2---
+triangle.exe -pzQgq A.poly
+参数:
+  -q Quality mesh generation with no angles smaller than 20 degrees.
+  
+triangle.exe -pzQgq30 A.poly
+参数:
+  -q30 Quality mesh generation with no angles smaller than 30 degrees.
+
+3---
+triangle.exe -pzQgqa0.001 A.poly
+参数:
+  -a0.01 Imposes a maximum triangle area constraint 0.001.
