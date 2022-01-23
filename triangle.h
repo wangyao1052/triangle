@@ -248,6 +248,18 @@
 /*                                                                           */
 /*****************************************************************************/
 
+#pragma once
+
+#include <malloc.h>
+
+#ifdef SINGLE
+#define REAL float
+#else /* not SINGLE */
+#define REAL double
+#endif /* not SINGLE */
+
+#define VOID void
+
 struct triangulateio {
   REAL *pointlist;                                               /* In / out */
   REAL *pointattributelist;                                      /* In / out */
@@ -277,6 +289,73 @@ struct triangulateio {
   int *edgemarkerlist;            /* Not used with Voronoi diagram; out only */
   REAL *normlist;                /* Used only with Voronoi diagram; out only */
   int numberofedges;                                             /* Out only */
+
+  triangulateio() :
+      //
+      pointlist(nullptr),
+      pointattributelist(nullptr),
+      pointmarkerlist(nullptr),
+      numberofpoints(0),
+      numberofpointattributes(0),
+      //
+      trianglelist(nullptr),
+      triangleattributelist(nullptr),
+      trianglearealist(nullptr),
+      neighborlist(nullptr),
+      numberoftriangles(0),
+      numberofcorners(0),
+      numberoftriangleattributes(0),
+      //
+      segmentlist(nullptr),
+      segmentmarkerlist(nullptr),
+      numberofsegments(0),
+      //
+      holelist(nullptr),
+      numberofholes(0),
+      //
+      regionlist(nullptr),
+      numberofregions(0),
+      //
+      edgelist(nullptr),
+      edgemarkerlist(nullptr),
+      normlist(nullptr),
+      numberofedges(0)
+  {
+  }
+
+  /*
+  ~triangulateio()
+  {
+	  free(pointlist);
+	  free(pointattributelist);
+	  free(pointmarkerlist);
+	  numberofpoints = 0;
+	  numberofpointattributes = 0;
+
+	  free(trianglelist);
+	  free(triangleattributelist);
+	  free(trianglearealist);
+	  free(neighborlist);
+	  numberoftriangles = 0;
+	  numberofcorners = 0;
+	  numberoftriangleattributes = 0;
+
+	  free(segmentlist);
+	  free(segmentmarkerlist);
+	  numberofsegments = 0;
+
+	  free(holelist);
+	  numberofholes = 0;
+
+	  free(regionlist);
+	  numberofregions = 0;
+
+	  free(edgelist);
+	  free(edgemarkerlist);
+	  free(normlist);
+	  numberofedges = 0;
+  }
+  */
 };
 
 void triangulate(char *, struct triangulateio *, struct triangulateio *,

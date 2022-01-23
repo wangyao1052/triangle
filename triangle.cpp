@@ -194,6 +194,8 @@
 /*                                                                           */
 /*****************************************************************************/
 
+#include "triangle.h"
+
 #define ANSI_DECLARATORS
 
 /* For single precision (which will save some memory and reduce paging),     */
@@ -212,11 +214,11 @@
 
 /* #define SINGLE */
 
-#ifdef SINGLE
-#define REAL float
-#else /* not SINGLE */
-#define REAL double
-#endif /* not SINGLE */
+//#ifdef SINGLE
+//#define REAL float
+//#else /* not SINGLE */
+//#define REAL double
+//#endif /* not SINGLE */
 
 /* If yours is not a Unix system, define the NO_TIMER compiler switch to     */
 /*   remove the Unix-specific timing code.                                   */
@@ -314,7 +316,7 @@
 /*   compiler is smarter, feel free to replace the "int" with "void".        */
 /*   Not that it matters.                                                    */
 
-#define VOID int
+//#define VOID int
 
 /* Two constants for algorithms based on random sampling.  Both constants    */
 /*   have been chosen empirically to optimize their respective algorithms.   */
