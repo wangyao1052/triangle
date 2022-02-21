@@ -2,10 +2,24 @@
 #include <fstream>
 #include <iomanip>
 
-#include "../../triangle.h"
+#include "triangle.h"
+#include "TriangleUtils.h"
+
+#include "clipperTest.h"
+#include "triangleTest.h"
 
 int main()
 {
+	//
+	TriangleTest::hole1();
+
+	//
+	ClipperTest::unionA();
+	ClipperTest::intersectionA();
+	ClipperTest::differenceA();
+
+	return 0;
+
 	//
 	triangulateio in;
 	//
