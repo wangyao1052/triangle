@@ -12,6 +12,7 @@ int main()
 {
 	//
 	TriangleTest::hole1();
+	//TriangleTest::mayCrash_duplicatedPoints();
 
 	//
 	ClipperTest::unionA();
