@@ -137,6 +137,203 @@ bool ClipperTest::differenceA()
 	return true;
 }
 
+bool ClipperTest::unionHole()
+{
+	//
+	std::vector<std::vector<osg::Vec2d>> polys1;
+	polys1.resize(2);
+	{
+		polys1[0].push_back(osg::Vec2d(0.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 100.0));
+		polys1[0].push_back(osg::Vec2d(0.0, 100.0));
+	}
+	{
+		polys1[1].push_back(osg::Vec2d(20.0, 60.0));
+		polys1[1].push_back(osg::Vec2d(20.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 60.0));
+	}
+	
+	if (!TriangleUtils::triMesh(polys1, "unionHole-1.off"))
+	{
+		std::cout << "error: ClipperTest::unionHole triMesh polys1 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polys2;
+	polys2.resize(1);
+	{
+		polys2[0].push_back(osg::Vec2d(40.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 72.0));
+		polys2[0].push_back(osg::Vec2d(40.0, 72.0));
+	}
+	if (!TriangleUtils::triMesh(polys2, "unionHole-2.off"))
+	{
+		std::cout << "error: ClipperTest::unionHole triMesh polys2 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polysOut;
+	bool ret = ClipperUtils::unions(polys1, polys2, polysOut);
+	if (!ret)
+	{
+		std::cout << "error: ClipperTest::unionHole unions failed!" << std::endl;
+		return false;
+	}
+	if (!TriangleUtils::triMesh(polysOut, "unionHole-3.off"))
+	{
+		std::cout << "error: ClipperTest::unionHole triMesh polysOut failed!" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool ClipperTest::intersectionHole()
+{
+	//
+	std::vector<std::vector<osg::Vec2d>> polys1;
+	polys1.resize(2);
+	{
+		polys1[0].push_back(osg::Vec2d(0.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 100.0));
+		polys1[0].push_back(osg::Vec2d(0.0, 100.0));
+	}
+	{
+		polys1[1].push_back(osg::Vec2d(20.0, 60.0));
+		polys1[1].push_back(osg::Vec2d(20.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 60.0));
+	}
+
+	if (!TriangleUtils::triMesh(polys1, "intersectionHole-1.off"))
+	{
+		std::cout << "error: ClipperTest::intersectionHole triMesh polys1 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polys2;
+	polys2.resize(1);
+	{
+		polys2[0].push_back(osg::Vec2d(40.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 72.0));
+		polys2[0].push_back(osg::Vec2d(40.0, 72.0));
+	}
+	if (!TriangleUtils::triMesh(polys2, "intersectionHole-2.off"))
+	{
+		std::cout << "error: ClipperTest::intersectionHole triMesh polys2 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polysOut;
+	bool ret = ClipperUtils::intersections(polys1, polys2, polysOut);
+	if (!ret)
+	{
+		std::cout << "error: ClipperTest::intersectionHole intersections failed!" << std::endl;
+		return false;
+	}
+	if (!TriangleUtils::triMesh(polysOut, "intersectionHole-3.off"))
+	{
+		std::cout << "error: ClipperTest::intersectionHole triMesh polysOut failed!" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool ClipperTest::differenceHole()
+{
+	//
+	std::vector<std::vector<osg::Vec2d>> polys1;
+	polys1.resize(2);
+	{
+		polys1[0].push_back(osg::Vec2d(0.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 100.0));
+		polys1[0].push_back(osg::Vec2d(0.0, 100.0));
+	}
+	{
+		polys1[1].push_back(osg::Vec2d(20.0, 60.0));
+		polys1[1].push_back(osg::Vec2d(20.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 80.0));
+		polys1[1].push_back(osg::Vec2d(50.0, 60.0));
+	}
+
+	if (!TriangleUtils::triMesh(polys1, "differenceHole-1.off"))
+	{
+		std::cout << "error: ClipperTest::differenceHole triMesh polys1 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polys2;
+	polys2.resize(1);
+	{
+		polys2[0].push_back(osg::Vec2d(40.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 40.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 72.0));
+		polys2[0].push_back(osg::Vec2d(40.0, 72.0));
+	}
+	if (!TriangleUtils::triMesh(polys2, "differenceHole-2.off"))
+	{
+		std::cout << "error: ClipperTest::differenceHole triMesh polys2 failed!" << std::endl;
+		return false;
+	}
+	//
+	std::vector<std::vector<osg::Vec2d>> polysOut;
+	bool ret = ClipperUtils::differences(polys1, polys2, polysOut);
+	if (!ret)
+	{
+		std::cout << "error: ClipperTest::differenceHole differences failed!" << std::endl;
+		return false;
+	}
+	if (!TriangleUtils::triMesh(polysOut, "differenceHole-3.off"))
+	{
+		std::cout << "error: ClipperTest::differenceHole triMesh polysOut failed!" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool ClipperTest::test()
+{
+	//
+	std::vector<std::vector<osg::Vec2d>> polys1;
+	polys1.resize(2);
+	{
+		polys1[0].push_back(osg::Vec2d(0.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(10.0, 0.0));
+		polys1[0].push_back(osg::Vec2d(10.0, 10.0));
+		polys1[0].push_back(osg::Vec2d(0.0, 10.0));
+	}
+	{
+		polys1[1].push_back(osg::Vec2d(20.0, 0.0));
+		polys1[1].push_back(osg::Vec2d(30.0, 0.0));
+		polys1[1].push_back(osg::Vec2d(30.0, 10.0));
+		polys1[1].push_back(osg::Vec2d(20.0, 10.0));
+	}
+
+	//
+	std::vector<std::vector<osg::Vec2d>> polys2;
+	polys2.resize(1);
+	{
+		polys2[0].push_back(osg::Vec2d(40.0, 0.0));
+		polys2[0].push_back(osg::Vec2d(50.0, 0.0));
+		polys2[0].push_back(osg::Vec2d(50.0, 10.0));
+		polys2[0].push_back(osg::Vec2d(40.0, 10.0));
+	}
+
+	//
+	std::vector<std::vector<osg::Vec2d>> polysOut;
+	bool ret = ClipperUtils::unions(polys1, polys2, polysOut);
+
+	return true;
+}
+
 void ClipperTest::testBoolLine()
 {
 	/*

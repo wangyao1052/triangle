@@ -11,13 +11,17 @@
 int main()
 {
 	//
-	TriangleTest::hole1();
-	//TriangleTest::mayCrash_duplicatedPoints();
-
-	//
 	ClipperTest::unionA();
 	ClipperTest::intersectionA();
 	ClipperTest::differenceA();
+	//
+	ClipperTest::unionHole();
+	ClipperTest::differenceHole();
+	ClipperTest::intersectionHole();
+
+	//
+	TriangleTest::hole1();
+	//TriangleTest::mayCrash_duplicatedPoints();
 
 	return 0;
 
