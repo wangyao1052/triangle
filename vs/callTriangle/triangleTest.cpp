@@ -32,6 +32,42 @@ bool TriangleTest::hole1()
 	return true;
 }
 
+bool TriangleTest::hole2()
+{
+	std::vector<std::vector<osg::Vec2d>> polygons;
+	polygons.resize(3);
+	// 外轮廓
+	{
+		polygons[0].push_back(osg::Vec2d(0.0, 0.0));
+		polygons[0].push_back(osg::Vec2d(100.0, 0.0));
+		polygons[0].push_back(osg::Vec2d(100.0, 100.0));
+		polygons[0].push_back(osg::Vec2d(0.0, 100.0));
+	}
+	// 孔1
+	{
+		polygons[1].push_back(osg::Vec2d(20.0, 70.0));
+		polygons[1].push_back(osg::Vec2d(20.0, 85.0));
+		polygons[1].push_back(osg::Vec2d(40.0, 85.0));
+		polygons[1].push_back(osg::Vec2d(40.0, 70.0));
+	}
+	// 孔2
+	{
+		polygons[2].push_back(osg::Vec2d(80.0, 30.0));
+		polygons[2].push_back(osg::Vec2d(80.0, 70.0));
+		polygons[2].push_back(osg::Vec2d(90.0, 70.0));
+		polygons[2].push_back(osg::Vec2d(90.0, 30.0));
+	}
+
+	// Delaunay
+	TriangleUtils::triMesh(polygons, "hole2.off");
+	// CDT
+	// q   --- no angles smaller than 20 degrees.
+	// a10 --- maximum triangle area 10.
+	TriangleUtils::triMesh(polygons, "hole2-cdt.off", "pzQqa10");
+
+	return true;
+}
+
 bool TriangleTest::mayCrash_duplicatedPoints()
 {
 	// ok

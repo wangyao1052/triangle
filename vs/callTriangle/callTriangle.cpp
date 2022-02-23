@@ -21,6 +21,7 @@ int main()
 
 	//
 	TriangleTest::hole1();
+	TriangleTest::hole2();
 	//TriangleTest::mayCrash_duplicatedPoints();
 
 	return 0;
