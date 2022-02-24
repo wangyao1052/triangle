@@ -262,12 +262,12 @@ bool ClipperTest::differenceHole()
 		polys1[1].push_back(osg::Vec2d(50.0, 80.0));
 		polys1[1].push_back(osg::Vec2d(50.0, 60.0));
 	}
-
 	if (!TriangleUtils::triMesh(polys1, "differenceHole-1.off"))
 	{
 		std::cout << "error: ClipperTest::differenceHole triMesh polys1 failed!" << std::endl;
 		return false;
 	}
+
 	//
 	std::vector<std::vector<osg::Vec2d>> polys2;
 	polys2.resize(1);
@@ -282,6 +282,7 @@ bool ClipperTest::differenceHole()
 		std::cout << "error: ClipperTest::differenceHole triMesh polys2 failed!" << std::endl;
 		return false;
 	}
+
 	//
 	std::vector<std::vector<osg::Vec2d>> polysOut;
 	bool ret = ClipperUtils::differences(polys1, polys2, polysOut);
@@ -293,6 +294,67 @@ bool ClipperTest::differenceHole()
 	if (!TriangleUtils::triMesh(polysOut, "differenceHole-3.off"))
 	{
 		std::cout << "error: ClipperTest::differenceHole triMesh polysOut failed!" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool ClipperTest::unionHui()
+{
+	//
+	std::vector<std::vector<osg::Vec2d>> polys1;
+	polys1.resize(1);
+	{
+		polys1[0].push_back(osg::Vec2d(0.0, 50.0));
+		polys1[0].push_back(osg::Vec2d(30.0, 50.0));
+		polys1[0].push_back(osg::Vec2d(30.0, 70.0));
+		polys1[0].push_back(osg::Vec2d(70.0, 70.0));
+		polys1[0].push_back(osg::Vec2d(70.0, 50.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 50.0));
+		polys1[0].push_back(osg::Vec2d(100.0, 100.0));
+		polys1[0].push_back(osg::Vec2d(0.0, 100.0));
+	}
+	if (!TriangleUtils::triMesh(polys1, "unionHui-1.off"))
+	{
+		std::cout << "error: ClipperTest::unionHui triMesh polys1 failed!" << std::endl;
+		return false;
+	}
+
+	//
+	std::vector<std::vector<osg::Vec2d>> polys2;
+	polys2.resize(1);
+	{
+		polys2[0].push_back(osg::Vec2d(0.0, 0.0));
+		polys2[0].push_back(osg::Vec2d(100.0, 0.0));
+		polys2[0].push_back(osg::Vec2d(100.0, 50.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 50.0));
+		polys2[0].push_back(osg::Vec2d(70.0, 30.0));
+		polys2[0].push_back(osg::Vec2d(30.0, 30.0));
+		polys2[0].push_back(osg::Vec2d(30.0, 50.0));
+		polys2[0].push_back(osg::Vec2d(0.0, 50.0));
+	}
+	if (!TriangleUtils::triMesh(polys2, "unionHui-2.off"))
+	{
+		std::cout << "error: ClipperTest::unionHui triMesh polys2 failed!" << std::endl;
+		return false;
+	}
+
+	//
+	//
+	std::vector<std::vector<osg::Vec2d>> polysOut;
+	bool ret = ClipperUtils::unions(polys1, polys2, polysOut);
+	// 存在的问题:TODO...
+	// 返回的polysOut中,孔为polysOut[0],外边界为polysOut[1];这个顺序显然是反的,该如何解决?
+	// 有时间研究下ClipperLib的源码.
+	if (!ret)
+	{
+		std::cout << "error: ClipperTest::unionHui unions failed!" << std::endl;
+		return false;
+	}
+	if (!TriangleUtils::triMesh(polysOut, "unionHui-3.off"))
+	{
+		std::cout << "error: ClipperTest::unionHui triMesh polysOut failed!" << std::endl;
 		return false;
 	}
 

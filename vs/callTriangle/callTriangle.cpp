@@ -18,6 +18,8 @@ int main()
 	ClipperTest::unionHole();
 	ClipperTest::differenceHole();
 	ClipperTest::intersectionHole();
+	//
+	ClipperTest::unionHui();
 
 	//
 	TriangleTest::hole1();

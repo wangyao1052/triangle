@@ -59,6 +59,20 @@ public:
 	static bool differenceHole();
 
 	//
+	// 两个多边形通过布尔并生成回字
+	//
+	// #--------------#
+	// |      A       |
+	// |   #------#   |
+	// |   |      |   |
+	// #---#      #---#
+	// |   |      |   |
+	// |   #------#   |
+	// |       B      |
+	// #--------------#
+	static bool unionHui();
+
+	//
 	static bool test();
 
 	static void testBoolLine();
